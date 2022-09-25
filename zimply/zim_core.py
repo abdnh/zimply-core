@@ -1219,7 +1219,7 @@ class ZIMClient:
 
         if index_file:
             logging.info("Search index available; continuing.")
-            return FTSIndex(sqlite3.connect(index_file), thread.level, zim_file)
+            return FTSIndex(sqlite3.connect(index_file, check_same_thread=False), thread.level, zim_file)
 
         return None
 
