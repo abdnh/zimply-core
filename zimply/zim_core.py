@@ -53,7 +53,7 @@ from time import sleep
 from threading import Thread
 from queue import Queue
 
-import zstandard
+import pyzstd
 from math import floor, pow, log
 
 # add Xapian support - if available
@@ -319,7 +319,6 @@ class ClusterData(object):
             # move the file pointer to the start of the blobs as long as we
             # don't reach the end of the stream.
             self.file.seek(self.offset + 1)
-
             while not decompressor.eof:
                 chunk = self.file.read(chunk_size)  # read in a chunk
                 data = decompressor.decompress(chunk)  # decompress the chunk
@@ -328,7 +327,7 @@ class ClusterData(object):
         elif self.compression == "zstd":
             # create a bytes stream to store the uncompressed cluster data
             self.buffer = io.BytesIO()
-            decompressor = zstandard.ZstdDecompressor().decompressobj()  # prepare the decompressor
+            decompressor = pyzstd.ZstdDecompressor() # prepare the decompressor
             # move the file pointer to the start of the blobs as long as we
             # don't reach the end of the stream.
             self.file.seek(self.offset + 1)
@@ -337,7 +336,7 @@ class ClusterData(object):
                 try:
                     data = decompressor.decompress(chunk)  # decompress the chunk
                     self.buffer.write(data)  # and store it in the buffer area
-                except zstandard.ZstdError:
+                except:
                     break
 
     def _source_buffer(self):

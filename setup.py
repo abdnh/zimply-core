@@ -37,7 +37,7 @@ setup(
         license='MIT',
         url="https://github.com/dylanmccall/ZIMply-core",
         keywords=['zim', 'wiki', 'wikipedia'],
-        install_requires=["zstandard>=0.14.1"],
+        install_requires=["pyzstd==0.15.3"],
         classifiers=[
             'Programming Language :: Python :: 3.4',
             'License :: OSI Approved :: MIT License',
