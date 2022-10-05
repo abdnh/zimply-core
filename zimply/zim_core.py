@@ -1253,6 +1253,22 @@ class ZIMClient:
 
         return article
 
+    def get_article_by_url(self, title, follow_redirect=True):
+        """
+        Retrieve an article based on its title, e.g. Article.html
+        :param title: the title
+        :param follow_redirect: whether or not to follow the full redirect chain to the intended article
+        :return: an Article object if it exists
+        :throws: KeyError when the path does not exist
+        """
+        namespace = "A" if self._zim_file.version <= (6, 0) else "C"
+        article = self._zim_file.get_article_by_url(namespace, title, follow_redirect=follow_redirect)
+
+        if not article:
+            raise KeyError("There is no resource available at '" + namespace + "/" + title + "' .")
+
+        return article
+
     def get_namespace_count(self, namespace):
         return self._zim_file.get_namespace_range(namespace).count
 
