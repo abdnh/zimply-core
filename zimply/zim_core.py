@@ -1253,7 +1253,7 @@ class ZIMClient:
 
         return article
 
-    def get_article_by_url(self, title, follow_redirect=True):
+    def get_article_by_title(self, title, follow_redirect=True):
         """
         Retrieve an article based on its title, e.g. Article.html
         :param title: the title
